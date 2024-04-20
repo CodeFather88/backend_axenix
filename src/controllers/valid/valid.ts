@@ -51,7 +51,27 @@ export const paths: Array<{
         {
             path: "/store/list",
             accesses: all
-        }
+        },
+        {
+            path: "/metric/storeWithStore",
+            accesses: [UserRole.admin, UserRole.operator]
+        },
+        {
+            path: "/metric/userWithStore",
+            accesses: [UserRole.admin, UserRole.operator]
+        },
+        {
+            path: "/metric/userWithUser",
+            accesses: [UserRole.admin, UserRole.operator]
+        },
+        {
+            path: "/product/create",
+            accesses: all
+        },
+        {
+            path: "/product/list",
+            accesses: all
+        },
     ]
 
 export type PropsGenerateAccessToken = {

@@ -1,13 +1,15 @@
 import { Document, Schema } from "mongoose";
 
-export interface IDistanceMatrix extends Document {
+export interface IMetric extends Document {
     id: number;
     firstPoint: number
     secondPoint: number
+    distance: number
+    duration: number
     saveData: () => void;
 }
 
-export const IDistanceMatrixSchemaDocument = new Schema<IDistanceMatrix>({
+export const IMetricSchemaDocument = new Schema<IMetric>({
     id: {
       type: Number,
       unique: true,
@@ -19,13 +21,18 @@ export const IDistanceMatrixSchemaDocument = new Schema<IDistanceMatrix>({
     secondPoint: {
         type: Number,
     },
+    distance: {
+      type: Number
+    },
+    duration: {
+      type: Number
+    }
   },
 {timestamps: true}
 )
   
   
-  
-  IDistanceMatrixSchemaDocument.methods.saveData = async function () {
+  IMetricSchemaDocument.methods.saveData = async function () {
   
     const DistanceMatrixModel: any = this.constructor;
     const distanceMatrix = await DistanceMatrixModel.findOne().sort({ id: -1 });

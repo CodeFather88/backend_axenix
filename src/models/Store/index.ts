@@ -7,7 +7,8 @@ export interface IStore extends Document {
     width: number,
     square: number, 
     name: string,
-    userId: number
+    userId: number,
+    volume: number
     saveData: () => void;
 }
 
@@ -36,6 +37,9 @@ export const IStoreSchemaDocument = new Schema<IStore>({
     name: {
       type: String
     },
+    volume: {
+      type: Number
+    }
   },
 {timestamps: true}
 )

@@ -4,8 +4,8 @@ import './src/database';
 
 const fastify = Fastify({});
 const serverPort: Record<string, number> = {
-  "1": 9090, // Оставляем порт 9090, так как NGINX проксирует на этот порт
-  "2": 9091, // При необходимости, измените порт
+  "1": 9090, 
+  "2": 9091,  
 };
 
 const serverId = process.argv[2] || "1";
@@ -55,8 +55,18 @@ fastify.register(require("./src/routers/store"), {
   logLevel: "warn",
   prefix: "/store",
 });
+fastify.register(require("./src/routers/metric"), {
+  logLevel: "warn",
+  prefix: "/metric",
+});
+fastify.register(require("./src/routers/product"), {
+  logLevel: "warn",
+  prefix: "/product",
+});
 
 fastify.listen({ port }, (err) => {
   if (err) throw err;
   console.log("Start server...");
+
 });
+

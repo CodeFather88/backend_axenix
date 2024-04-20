@@ -17,7 +17,9 @@ export const storeCreateSchema = Type.Object({
     address: Type.String({
         description: "адрес склада"
     }),
-    
+    volume: Type.Number({
+        description: "Объем склада"
+    })
 
 
 

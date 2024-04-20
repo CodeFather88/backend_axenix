@@ -12,6 +12,6 @@ export const storeList = async ({user, query}: {user: any, query: IStoreListSche
     const maxPage = Math.ceil(count / PAGE_LIMIT);
     return {
         maxPage,
-        list: stores
+        list: [stores]
     }
 }

@@ -3,8 +3,8 @@ import { Document, Schema } from "mongoose";
 export interface IProduct extends Document {
     id: number;
     userId: number,
-    height: string, 
-    width: string,
+    height: number, 
+    width: number,
     Product_Name: string,
     Product_Cost: number,
     Manufacture_Date: Date,
@@ -36,11 +36,4 @@ export const IProductSchemaDocument = new Schema<IProduct>({
 )
   
   
-  
-  IProductSchemaDocument.methods.saveData = async function () {
-    const ProductModel: any = this.constructor;
-    const Product = await ProductModel.findOne().sort({ id: -1 });
-    const newCustomId = Product ? Product.id + 1 : 1;
-    this.id = newCustomId;
-    await this.save();
-  };
+   
