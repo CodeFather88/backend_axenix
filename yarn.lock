@@ -474,6 +474,11 @@ cross-spawn@^7.0.0:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+csv-parse@^4.13.1:
+  version "4.13.1"
+  resolved "https://registry.npmjs.org/csv-parse/-/csv-parse-4.13.1.tgz"
+  integrity sha512-5up4YofuK2EGBYlEsEKeTvgJhBnqorrNrLsgQgv9+1lLbDEEqZhtPzxDmqmVV7rrZ+hd1QHnuK0a0IKeTpMvSA==
+
 debug@^4.0.0, debug@^4.1.1, debug@4, debug@4.x:
   version "4.3.4"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"

@@ -1,11 +1,11 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { SECRET_KEY_ACCESS } from "../../../config"
-import { PropsGenerateAccessToken } from "."
 import { UserDB } from "../../database"
 import { getError } from "../../errors"
 import { UserRole } from "../../models/User/enums"
 import { ErrorEnum } from "../../models/enums/errors"
 import jwt from 'jsonwebtoken'
+import { IUser } from "../../models/User"
 
 export const SchemaHeadersAuth = {
     type: "object",
@@ -43,10 +43,22 @@ export const paths: Array<{
         {
             path: "/user/info/get",
             accesses: all
+        },
+        {
+            path: "/store/create",
+            accesses: all
+        },
+        {
+            path: "/store/list",
+            accesses: all
         }
     ]
 
-export const valid = async (token: string, path: string) => {
+export type PropsGenerateAccessToken = {
+    id: number,
+    role: string
+}
+export const valid = async (token: string, path: string): Promise<IUser | null> => {
     try {
         const payload: PropsGenerateAccessToken = jwt.verify(token, SECRET_KEY_ACCESS) as PropsGenerateAccessToken
         console.log("payload", payload)
@@ -65,6 +77,6 @@ export const valid = async (token: string, path: string) => {
         return user
 
     } catch {
-        return "catch"
+        return null
     }
 }

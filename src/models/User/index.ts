@@ -7,11 +7,12 @@ export interface IUser extends Document {
     password: string; 
     ban: boolean; 
     role: number;
-    saveData: () => void;
-}
+    address: string;
+    height: number,
+    width: number,
+    
 
-export interface IUserDocument extends IUser, Document { 
-  id: number
+    saveData: () => void;
 }
 
 export const IUserSchemaDocument = new Schema<IUser>({

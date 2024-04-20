@@ -9,6 +9,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/nodemailer": "^6.4.14",
     "bcrypt": "^5.1.1",
+    "csv-parse": "^4.13.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "global": "^4.4.0",

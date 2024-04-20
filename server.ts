@@ -51,6 +51,10 @@ fastify.register(require("./src/routers/user"), {
   logLevel: "warn",
   prefix: "/user",
 });
+fastify.register(require("./src/routers/store"), {
+  logLevel: "warn",
+  prefix: "/store",
+});
 
 fastify.listen({ port }, (err) => {
   if (err) throw err;
