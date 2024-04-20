@@ -1,41 +1,17 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
-import './src/database'
+import './src/database';
+
 const fastify = Fastify({});
 fastify.register(cors, {});
 
-
 const serverPort: Record<string, number> = {
-  "1": 9090,
-  "2": 9091,
+  "1": 9090, // Оставляем порт 9090, так как NGINX проксирует на этот порт
+  "2": 9091, // При необходимости, измените порт
 };
 
 const serverId = process.argv[2] || "1";
-
-
 const port = serverPort[serverId] || serverPort["1"];
-
-// fastify.setNotFoundHandler((request, reply) => {
-//   reply.redirect("/404.html");
-// });
-
-// fastify.addHook("onSend", (request, reply, payload: string, done) => {
-//   const timestamp = Date.now();
-//   let jsonPayload;
-
-//   try {
-//     jsonPayload = JSON.parse(payload);
-//     jsonPayload = {
-//       ...jsonPayload,
-//       timestamp: timestamp,
-//       id: Number(serverId),
-//     };
-//   } catch (error) {
-//     //fastify.log.error(error);
-//   }
-
-//   done(null, JSON.stringify(jsonPayload));
-// });
 
 fastify.register(require("@fastify/swagger"), {
   swagger: {
@@ -45,17 +21,16 @@ fastify.register(require("@fastify/swagger"), {
       version: "0.0.1",
     },
     externalDocs: {
-      url: "https://swagger.io",
+      url: "http://swagger.io", // Изменен протокол на http
       description: "Find more info here",
     },
     tags: [
       {
         name: "Авторизация",
-        description:
-          "Конечные точки, связанные с авторизацией пользователя.",
+        description: "Конечные точки, связанные с авторизацией пользователя.",
       },
     ],
-    schemes: ["http"],
+    schemes: ["http"], // Изменен протокол на http
     consumes: ["application/json"],
     produces: ["application/json"],
   },
@@ -76,12 +51,6 @@ fastify.register(require("./src/routers/user"), {
   logLevel: "warn",
   prefix: "/user",
 });
-
-// fastify.register(require("./routers/users"), {
-//   logLevel: "warn",
-//   prefix: "/users",
-// })
-
 
 fastify.listen({ port }, (err) => {
   if (err) throw err;
