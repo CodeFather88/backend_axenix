@@ -55,7 +55,7 @@ fastify.register(require("@fastify/swagger"), {
           "Конечные точки, связанные с авторизацией пользователя.",
       },
     ],
-    schemes: ["http", "https"],
+    schemes: ["http"],
     consumes: ["application/json"],
     produces: ["application/json"],
   },
