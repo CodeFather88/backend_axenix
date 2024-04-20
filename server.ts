@@ -3,7 +3,6 @@ import cors from "@fastify/cors";
 import './src/database';
 
 const fastify = Fastify({});
-fastify.cors
 const serverPort: Record<string, number> = {
   "1": 9090, // Оставляем порт 9090, так как NGINX проксирует на этот порт
   "2": 9091, // При необходимости, измените порт
