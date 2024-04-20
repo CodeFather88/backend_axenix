@@ -12,6 +12,9 @@ export default (
     fastify.register(require("./info"), {
         prefix: "/info"
     })
+    fastify.register(require("./getCoord"), {
+        prefix: "/getCoord"
+    })
     
     
     

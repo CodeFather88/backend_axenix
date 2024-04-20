@@ -72,6 +72,14 @@ export const paths: Array<{
             path: "/product/list",
             accesses: all
         },
+        {
+            path: "/store/getCoord",
+            accesses: all
+        },
+        {
+            path: "/user/getCoord",
+            accesses: all
+        },
     ]
 
 export type PropsGenerateAccessToken = {

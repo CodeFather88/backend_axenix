@@ -35,6 +35,13 @@ export const IUserSchemaDocument = new Schema<IUser>({
         type: Number,
         enum: UserRole,
         default: UserRole.user
+    },
+    address: {
+      type: String,
+      default: "Садовая улица"
+    },
+    height: {
+      
     }
   },
 {timestamps: true}
