@@ -3,7 +3,7 @@ import cors from "@fastify/cors";
 import './src/database';
 
 const fastify = Fastify({});
-
+fastify.cors
 const serverPort: Record<string, number> = {
   "1": 9090, // Оставляем порт 9090, так как NGINX проксирует на этот порт
   "2": 9091, // При необходимости, измените порт
@@ -29,12 +29,14 @@ fastify.register(require("@fastify/swagger"), {
         description: "Конечные точки, связанные с авторизацией пользователя.",
       },
     ],
-    schemes: ["http"], // Изменен протокол на http
+    schemes: ["http", "https"], // Изменен протокол на http
     consumes: ["application/json"],
     produces: ["application/json"],
   },
   exposeRoute: true,
 });
+
+fastify.register(cors, {})
 
 fastify.register(require("@fastify/swagger-ui"), {
   routePrefix: "/docs",
