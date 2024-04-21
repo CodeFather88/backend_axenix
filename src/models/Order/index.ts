@@ -18,7 +18,7 @@ export interface IOrder extends Document {
     status: OrderStatusEnum;
     createdAt: Date;
     updatedAt: Date;
-    products: Array<IProduct>; 
+    products: Array<IProduct>;
     deliveryInfo: {
         address: string;
         contact: string;
@@ -29,9 +29,9 @@ export interface IOrder extends Document {
 
 export const IOrderSchemaDocument = new Schema<IOrder>({
     id: {
-      type: Number,
-      unique: true,
-      default: 1
+        type: Number,
+        unique: true,
+        default: 1
     },
     firstPoint: {
         type: {
@@ -98,13 +98,13 @@ export const IOrderSchemaDocument = new Schema<IOrder>({
     }
 });
 
-  
-  
-  IOrderSchemaDocument.methods.saveData = async function () {
-  
+
+
+IOrderSchemaDocument.methods.saveData = async function () {
+
     const DistanceMatrixModel: any = this.constructor;
     const distanceMatrix = await DistanceMatrixModel.findOne().sort({ id: -1 });
     const newCustomId = distanceMatrix ? distanceMatrix.id + 1 : 1;
     this.id = newCustomId;
     await this.save();
-  };
+};

@@ -1,4 +1,4 @@
 export enum PointTypeEnum {
-    Store="Store",
-    User="User"
+    Store = "Store",
+    User = "User"
 }

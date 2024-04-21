@@ -6,40 +6,40 @@ import { preHandlerUser, SchemaHeadersAuth } from "../../../controllers/valid/va
 
 
 const schemaName = {
-    tags: [
+  tags: [
     "Методы работы со складами"
-    ]
+  ]
 }
-export default  (
-    fastify: FastifyInstance,
-    opts: {},
-    done: (err?: Error | undefined) => void
+export default (
+  fastify: FastifyInstance,
+  opts: {},
+  done: (err?: Error | undefined) => void
 ) => {
-    fastify.addHook("preHandler", async (req, res) => {
-       await preHandlerUser(req, res)
-    })
+  fastify.addHook("preHandler", async (req, res) => {
+    await preHandlerUser(req, res)
+  })
 
-    fastify.post<{ 
-      Headers: { token: string },
-      Body: IStoreCreateSchema
+  fastify.post<{
+    Headers: { token: string },
+    Body: IStoreCreateSchema
   }>(
-        "",
-        {
-          schema: {
-            ...schemaName,
-            headers: SchemaHeadersAuth,
-            body: storeCreateSchema 
-          },
-        },
-        async (req: FastifyRequest, res: FastifyReply) => {
-            let user = req.headers["user"];
-            const body = req.body as IStoreCreateSchema
-            if (typeof user === 'string') {
-                user = JSON.parse(user);
-                const response = await createNewStore({user, body})
-                return response
-            }
-        }
-      );
-    done();
+    "",
+    {
+      schema: {
+        ...schemaName,
+        headers: SchemaHeadersAuth,
+        body: storeCreateSchema
+      },
+    },
+    async (req: FastifyRequest, res: FastifyReply) => {
+      let user = req.headers["user"];
+      const body = req.body as IStoreCreateSchema
+      if (typeof user === 'string') {
+        user = JSON.parse(user);
+        const response = await createNewStore({ user, body })
+        return response
+      }
+    }
+  );
+  done();
 };

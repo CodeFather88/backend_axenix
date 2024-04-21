@@ -8,40 +8,40 @@ import { storeList } from "../../../controllers/store/list";
 
 
 const schemaName = {
-    tags: [
+  tags: [
     "Методы работы со складами"
-    ]
+  ]
 }
-export default  (
-    fastify: FastifyInstance,
-    opts: {},
-    done: (err?: Error | undefined) => void
+export default (
+  fastify: FastifyInstance,
+  opts: {},
+  done: (err?: Error | undefined) => void
 ) => {
-    fastify.addHook("preHandler", async (req, res) => {
-       await preHandlerUser(req, res)
-    })
+  fastify.addHook("preHandler", async (req, res) => {
+    await preHandlerUser(req, res)
+  })
 
-    fastify.get<{ 
-      Headers: { token: string },
-      Querystring: IStoreListSchema
+  fastify.get<{
+    Headers: { token: string },
+    Querystring: IStoreListSchema
   }>(
-        "",
-        {
-          schema: {
-            ...schemaName,
-            headers: SchemaHeadersAuth,
-            querystring: storeListSchema 
-          },
-        },
-        async (req: FastifyRequest, res: FastifyReply) => {
-            let user = req.headers["user"];
-            const query = req.query as IStoreListSchema
-            if (typeof user === 'string') {
-                user = JSON.parse(user);
-                const response = await storeList({user, query})
-                return response
-            }
-        }
-      );
-    done();
+    "",
+    {
+      schema: {
+        ...schemaName,
+        headers: SchemaHeadersAuth,
+        querystring: storeListSchema
+      },
+    },
+    async (req: FastifyRequest, res: FastifyReply) => {
+      let user = req.headers["user"];
+      const query = req.query as IStoreListSchema
+      if (typeof user === 'string') {
+        user = JSON.parse(user);
+        const response = await storeList({ user, query })
+        return response
+      }
+    }
+  );
+  done();
 };

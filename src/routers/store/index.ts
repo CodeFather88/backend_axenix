@@ -5,7 +5,7 @@ export default (
     opts: {},
     done: (err?: Error | undefined) => void
 ) => {
-    
+
     fastify.register(require("./create"), {
         prefix: "/create"
     })
@@ -15,8 +15,8 @@ export default (
     fastify.register(require("./getCoord"), {
         prefix: "/getCoord"
     })
-    
-    
-    
+
+
+
     done();
 };

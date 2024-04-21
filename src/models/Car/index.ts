@@ -13,9 +13,9 @@ export interface ICar extends Document {
 
 export const ICarSchemaDocument = new Schema<ICar>({
     id: {
-      type: Number,
-      unique: true,
-      default: 1
+        type: Number,
+        unique: true,
+        default: 1
     },
     firstPoint: {
         type: Number,
@@ -35,16 +35,16 @@ export const ICarSchemaDocument = new Schema<ICar>({
     height: {
         type: Number
     }
-  },
-{timestamps: true}
+},
+    { timestamps: true }
 )
-  
-  
-  ICarSchemaDocument.methods.saveData = async function () {
-  
+
+
+ICarSchemaDocument.methods.saveData = async function () {
+
     const DistanceMatrixModel: any = this.constructor;
     const distanceMatrix = await DistanceMatrixModel.findOne().sort({ id: -1 });
     const newCustomId = distanceMatrix ? distanceMatrix.id + 1 : 1;
     this.id = newCustomId;
     await this.save();
-  };
+};

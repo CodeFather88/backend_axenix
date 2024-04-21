@@ -5,40 +5,40 @@ import { createNewProduct } from "../../../controllers/product/create";
 
 
 const schemaName = {
-    tags: [
+  tags: [
     "Методы работы с продуктами"
-    ]
+  ]
 }
-export default  (
-    fastify: FastifyInstance,
-    opts: {},
-    done: (err?: Error | undefined) => void
+export default (
+  fastify: FastifyInstance,
+  opts: {},
+  done: (err?: Error | undefined) => void
 ) => {
-    fastify.addHook("preHandler", async (req, res) => {
-       await preHandlerUser(req, res)
-    })
+  fastify.addHook("preHandler", async (req, res) => {
+    await preHandlerUser(req, res)
+  })
 
-    fastify.post<{ 
-      Headers: { token: string },
-      Body: IProductCreateSchema
+  fastify.post<{
+    Headers: { token: string },
+    Body: IProductCreateSchema
   }>(
-        "",
-        {
-          schema: {
-            ...schemaName,
-            headers: SchemaHeadersAuth,
-            body: productCreateSchema 
-          },
-        },
-        async (req: FastifyRequest, res: FastifyReply) => {
-            let user = req.headers["user"];
-            const body = req.body as IProductCreateSchema
-            if (typeof user === 'string') {
-                user = JSON.parse(user);
-                const response = await createNewProduct({user, body})
-                return response
-            }
-        }
-      );
-    done();
+    "",
+    {
+      schema: {
+        ...schemaName,
+        headers: SchemaHeadersAuth,
+        body: productCreateSchema
+      },
+    },
+    async (req: FastifyRequest, res: FastifyReply) => {
+      let user = req.headers["user"];
+      const body = req.body as IProductCreateSchema
+      if (typeof user === 'string') {
+        user = JSON.parse(user);
+        const response = await createNewProduct({ user, body })
+        return response
+      }
+    }
+  );
+  done();
 };

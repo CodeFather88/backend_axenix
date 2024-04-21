@@ -4,35 +4,35 @@ import { preHandlerUser, SchemaHeadersAuth } from "../../../controllers/valid/va
 
 
 const schemaName = {
-    tags: [
+  tags: [
     "Получение пользователя"
-    ]
+  ]
 }
-export default  (
-    fastify: FastifyInstance,
-    opts: {},
-    done: (err?: Error | undefined) => void
+export default (
+  fastify: FastifyInstance,
+  opts: {},
+  done: (err?: Error | undefined) => void
 ) => {
-    fastify.addHook("preHandler", async (req, res) => {
-       await preHandlerUser(req, res)
-    })
+  fastify.addHook("preHandler", async (req, res) => {
+    await preHandlerUser(req, res)
+  })
 
-    fastify.get<{ Headers: { token: string } }>(
-        "/get",
-        {
-          schema: {
-            ...schemaName,
-            headers: SchemaHeadersAuth,
-          },
-        },
-        async (req, res) => {
-            let user = req.headers["user"];
-            if (typeof user === 'string') {
-                user = JSON.parse(user);
-                const userInfo = await getUserInfo(user)
-                res.send(userInfo)
-            }
-        }
-      );
-    done();
+  fastify.get<{ Headers: { token: string } }>(
+    "/get",
+    {
+      schema: {
+        ...schemaName,
+        headers: SchemaHeadersAuth,
+      },
+    },
+    async (req, res) => {
+      let user = req.headers["user"];
+      if (typeof user === 'string') {
+        user = JSON.parse(user);
+        const userInfo = await getUserInfo(user)
+        res.send(userInfo)
+      }
+    }
+  );
+  done();
 };

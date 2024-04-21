@@ -9,7 +9,7 @@ import { UserDB } from '../../database';
 export const authUser = async (body: ILoginSchema) => {
     const { email, password } = body
     const user = await UserDB
-        .findOne({ email }, {_id: 0})
+        .findOne({ email }, { _id: 0 })
         .lean()
     if (!user) {
         return getError(ErrorEnum.InvalidLoginOrPassword)
@@ -18,7 +18,7 @@ export const authUser = async (body: ILoginSchema) => {
     if (!validPassword) {
         return getError(ErrorEnum.InvalidLoginOrPassword)
     }
-    const token = jwt.sign({id: user.id, role: user.role}, SECRET_KEY_ACCESS, { expiresIn: "24h" })
+    const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY_ACCESS, { expiresIn: "24h" })
     return { token }
 }
 
@@ -26,8 +26,8 @@ export async function register(body: ILoginSchema) {
     try {
         const { email, password } = body;
         const existingUser = await UserDB
-        .findOne({ email }, {_id: 0})
-        .lean()
+            .findOne({ email }, { _id: 0 })
+            .lean()
         if (existingUser) {
             return getError(ErrorEnum.UserExists)
         }
@@ -37,7 +37,7 @@ export async function register(body: ILoginSchema) {
             password: hashedPassword
         })
         await newUser.saveData()
-        const token = jwt.sign({id: newUser.id, role: newUser.role}, SECRET_KEY_ACCESS, { expiresIn: "24h" })
+        const token = jwt.sign({ id: newUser.id, role: newUser.role }, SECRET_KEY_ACCESS, { expiresIn: "24h" })
         return {
             token,
         };

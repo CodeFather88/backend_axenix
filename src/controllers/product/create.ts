@@ -1,5 +1,5 @@
 import { ProductDB } from "../../database";
-import {IProductCreateSchema} from '../../types/product/create.t'
+import { IProductCreateSchema } from '../../types/product/create.t'
 export const createNewProduct = async ({ user, body }: { user: any, body: IProductCreateSchema }) => {
     try {
         const {
@@ -15,11 +15,11 @@ export const createNewProduct = async ({ user, body }: { user: any, body: IProdu
             Quantity_Sold,
             Product_Amount,
             Product_Measure,
-            Product_Volume, 
-            Manufacturer, 
-            Height, 
+            Product_Volume,
+            Manufacturer,
+            Height,
             Width } = body;
-    
+
         const newProduct = new ProductDB({
             Product_Name,
             Product_Cost,
@@ -38,9 +38,8 @@ export const createNewProduct = async ({ user, body }: { user: any, body: IProdu
             Height,
             Width
         });
-    console.log("prod", newProduct)
         await newProduct.save();
-    
+
         return { state: true };
     } catch (error) {
         console.error("Error creating new product:", error);

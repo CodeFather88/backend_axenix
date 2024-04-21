@@ -28,7 +28,6 @@ export const preHandlerUser = async (req: FastifyRequest, res: FastifyReply) => 
             .status(401)
             .send(getError(ErrorEnum.NoAccess));
     }
-    console.log("result", result)
     req.headers["user"] = JSON.stringify(result)
 };
 
@@ -89,16 +88,13 @@ export type PropsGenerateAccessToken = {
 export const valid = async (token: string, path: string): Promise<IUser | null> => {
     try {
         const payload: PropsGenerateAccessToken = jwt.verify(token, SECRET_KEY_ACCESS) as PropsGenerateAccessToken
-        console.log("payload", payload)
         const user = await UserDB
             .findOne({ id: payload.id, role: payload.role }, { email: 1, id: 1, role: 1, _id: 0 })
             .lean();
-        console.log("user",user)
         if (!user) {
             return null
         }
         const _path = paths.find(e => e.path == path && e.accesses.includes(user.role))
-        console.log("path",_path)
         if (!_path) {
             return null
         }

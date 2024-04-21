@@ -1,4 +1,4 @@
-import {ErrorEnum} from '../models/enums/errors'
+import { ErrorEnum } from '../models/enums/errors'
 const errors: Array<{
     message: string,
     code: ErrorEnum

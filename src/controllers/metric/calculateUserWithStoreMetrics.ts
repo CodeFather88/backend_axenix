@@ -11,19 +11,14 @@ interface UserStoreMetric {
 
 export const updateUserWithStoreMetrics = async () => {
     try {
-        // Получаем все пользователей из базы данных
         const allUsers = await UserDB.find({}, { userId: 1, height: 1, width: 1 }).lean();
-        
-        // Получаем все склады из базы данных
         const allStores = await StoreDB.find({}, { storeId: 1, height: 1, width: 1 }).lean();
-        
-        // Собираем данные о метриках для пользователей с складами
+
         const userStoreMetrics: UserStoreMetric[] = [];
         allUsers.forEach(user => {
             allStores.forEach(store => {
                 const distance = calculateDistance(user.height, user.width, store.height, store.width);
-                // Рассчитываем время в пути
-                const avgSpeed = 16.66; // Средняя скорость в км/ч
+                const avgSpeed = 8.746087871 //взяли среднее значение из выборки в excel
                 const duration = distance / avgSpeed;
                 userStoreMetrics.push({
                     firstPoint: `user_${user.id}`,
@@ -34,11 +29,8 @@ export const updateUserWithStoreMetrics = async () => {
                 });
             });
         });
-        
-        // Вставляем метрики пакетно в базу данных
         await MetricDB.insertMany(userStoreMetrics);
-        
-        console.log("User with store metrics updated successfully");
+        return { status: "ok" }
     } catch (err) {
         console.error("Error while updating user with store metrics:", err);
     }
