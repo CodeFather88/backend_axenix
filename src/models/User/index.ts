@@ -39,10 +39,13 @@ export const IUserSchemaDocument = new Schema<IUser>({
     default: "Садовая улица"
   },
   height: {
-    type: Number
+    type: Number,
+    default: Math.random()*30
   },
   width: {
-    type: Number
+    type: Number,
+    default: Math.random()*30
+
   }
 },
   { timestamps: true }

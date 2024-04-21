@@ -1,9 +1,11 @@
-import { Document, Schema } from "mongoose";
+import { Document, Schema, Types } from "mongoose";
+import { ICar } from "../Car";
 
 export interface ICarrier extends Document {
     id: number;
     width: number
-    height: number
+    height: number,
+    carsInUse: Types.ObjectId[]
     saveData: () => void;
 }
 
@@ -18,7 +20,11 @@ export const ICarrierSchemaDocument = new Schema<ICarrier>({
     },
     height: {
         type: Number
-    }
+    },
+    carsInUse: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Car'
+    }]
 },
     { timestamps: true }
 )

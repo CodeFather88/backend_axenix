@@ -2,8 +2,8 @@ import { Document, Schema } from "mongoose";
 
 export interface IMetric extends Document {
   id: number;
-  firstPoint: { width: Number, height: Number }
-  secondPoint: { width: Number, height: Number }
+  firstPoint: {pointId: Number, width: Number, height: Number }
+  secondPoint: { pointId: Number, width: Number, height: Number }
   distance: number
   duration: number
   saveData: () => void;
@@ -17,6 +17,9 @@ export const IMetricSchemaDocument = new Schema<IMetric>({
   },
   firstPoint: {
     type: {
+      pointId: {
+        type: Number
+      },
       width: {
         type: Number,
       },
@@ -39,9 +42,9 @@ export const IMetricSchemaDocument = new Schema<IMetric>({
 
 IMetricSchemaDocument.methods.saveData = async function () {
 
-  const DistanceMatrixModel: any = this.constructor;
-  const distanceMatrix = await DistanceMatrixModel.findOne().sort({ id: -1 });
-  const newCustomId = distanceMatrix ? distanceMatrix.id + 1 : 1;
+  const MetricModel: any = this.constructor;
+  const metric = await MetricModel.findOne().sort({ id: -1 });
+  const newCustomId = metric ? metric.id + 1 : 1;
   this.id = newCustomId;
   await this.save();
 };
