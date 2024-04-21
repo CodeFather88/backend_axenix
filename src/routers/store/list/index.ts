@@ -30,15 +30,13 @@ export default (
       schema: {
         ...schemaName,
         headers: SchemaHeadersAuth,
-        querystring: storeListSchema
       },
     },
     async (req: FastifyRequest, res: FastifyReply) => {
       let user = req.headers["user"];
-      const query = req.query as IStoreListSchema
       if (typeof user === 'string') {
         user = JSON.parse(user);
-        const response = await storeList({ user, query })
+        const response = await storeList()
         return response
       }
     }

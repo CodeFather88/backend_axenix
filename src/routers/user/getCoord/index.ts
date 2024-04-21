@@ -26,13 +26,11 @@ export default (
     {
       schema: {
         ...schemaName,
-        headers: SchemaHeadersAuth,
-        querystring: userCoordschema
+        headers: SchemaHeadersAuth
       },
     },
     async (req: FastifyRequest, res: FastifyReply) => {
       let user = req.headers["user"];
-      const query = req.query as IUserCoordSchema
       if (typeof user === 'string') {
         const response = await userCoord()
         return response
