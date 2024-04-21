@@ -34,7 +34,7 @@ export default (
       let user = req.headers["user"];
       const query = req.query as IUserCoordSchema
       if (typeof user === 'string') {
-        const response = await userCoord({ query })
+        const response = await userCoord()
         return response
       }
     }

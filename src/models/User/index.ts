@@ -10,8 +10,6 @@ export interface IUser extends Document {
   address: string;
   height: number,
   width: number,
-
-
   saveData: () => void;
 }
 
@@ -41,7 +39,10 @@ export const IUserSchemaDocument = new Schema<IUser>({
     default: "Садовая улица"
   },
   height: {
-
+    type: Number
+  },
+  width: {
+    type: Number
   }
 },
   { timestamps: true }

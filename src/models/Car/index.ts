@@ -2,6 +2,7 @@ import { Document, Schema } from "mongoose";
 
 export interface ICar extends Document {
     id: number;
+    carrierId: number;
     userId: number;
     firstPoint: number
     secondPoint: number
@@ -16,6 +17,9 @@ export const ICarSchemaDocument = new Schema<ICar>({
         type: Number,
         unique: true,
         default: 1
+    },
+    carrierId: {
+        type: Number
     },
     firstPoint: {
         type: Number,

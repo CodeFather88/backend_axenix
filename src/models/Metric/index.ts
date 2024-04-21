@@ -2,8 +2,8 @@ import { Document, Schema } from "mongoose";
 
 export interface IMetric extends Document {
   id: number;
-  firstPoint: number
-  secondPoint: number
+  firstPoint: { width: Number, height: Number }
+  secondPoint: { width: Number, height: Number }
   distance: number
   duration: number
   saveData: () => void;
@@ -16,20 +16,25 @@ export const IMetricSchemaDocument = new Schema<IMetric>({
     default: 1
   },
   firstPoint: {
-    type: Number,
-  },
-  secondPoint: {
-    type: Number,
-  },
-  distance: {
-    type: Number
-  },
-  duration: {
-    type: Number
+    type: {
+      width: {
+        type: Number,
+      },
+      height: {
+        type: Number,
+      }
+    },
+    secondPoint: {
+      type: Number,
+    },
+    distance: {
+      type: Number
+    },
+    duration: {
+      type: Number
+    }
   }
-},
-  { timestamps: true }
-)
+}, { timestamps: true });
 
 
 IMetricSchemaDocument.methods.saveData = async function () {

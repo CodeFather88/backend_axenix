@@ -25,14 +25,12 @@ export default (
       schema: {
         ...schemaName,
         headers: SchemaHeadersAuth,
-        querystring: storeCoordschema
       },
     },
     async (req: FastifyRequest, res: FastifyReply) => {
       let user = req.headers["user"];
-      const query = req.query as IStoreCoordSchema
       if (typeof user === 'string') {
-        const response = await storeCoord({ query })
+        const response = await storeCoord()
         return response
       }
     }
